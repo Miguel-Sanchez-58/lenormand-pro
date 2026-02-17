@@ -7,25 +7,21 @@ async function startReading() {
     return;
   }
 
-  console.log("Pregunta enviada:", question);
   resultDiv.innerText = "🔮 Barajando el mazo Lenormand...\n\n";
 
   try {
     const response = await fetch(
-  "https://lenormand-pro-api.miguel-69b.workers.dev",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ question })
-  }
-);
-
-    console.log("Respuesta HTTP:", response.status);
+      "https://lenormand-pro-api.miguel-69b.workers.dev",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question })
+      }
+    );
 
     const data = await response.json();
-    console.log("Respuesta JSON:", data);
 
     if (data.error) {
       resultDiv.innerText = data.error;
@@ -34,7 +30,7 @@ async function startReading() {
     }
 
   } catch (error) {
-    console.error("Error en fetch:", error);
+    console.error(error);
     resultDiv.innerText = "Error de conexión con el sistema.";
   }
 }

@@ -1,3 +1,4 @@
+alert("app.js cargado correctamente");
 async function startReading() {
   const question = document.getElementById("question").value;
   const resultDiv = document.getElementById("result");

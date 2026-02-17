@@ -30,5 +30,6 @@ async function startReading() {
     resultDiv.innerText = "Error de conexión con el sistema.";
   }
 }
+Corregida URL del worker
 
 

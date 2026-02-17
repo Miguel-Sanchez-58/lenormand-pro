@@ -1,17 +1,34 @@
-function startReading() {
+async function startReading() {
   const question = document.getElementById("question").value;
+  const resultDiv = document.getElementById("result");
 
   if (!question.trim()) {
     alert("Por favor, escribe una pregunta clara.");
     return;
   }
 
-  document.getElementById("result").innerText =
-    "🔮 Barajando el mazo Lenormand...\n\n(Esta es una demo visual. La IA se conecta en el siguiente paso.)";
+  resultDiv.innerText = "🔮 Barajando el mazo Lenormand...\n\n";
+
+  try {
+    const response = await fetch(
+      "https://PEGA-AQUI-TU-WORKER-URL",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question })
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.error) {
+      resultDiv.innerText = data.error;
+    } else {
+      resultDiv.innerText = data.result;
+    }
+  } catch (error) {
+    resultDiv.innerText = "Error de conexión con el sistema.";
+  }
 }
 
-/* Registro PWA */
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js");
-}
 

@@ -24,10 +24,15 @@ async function startReading() {
     const data = await response.json();
 
     if (data.error) {
-      resultDiv.innerText = data.error;
-    } else {
-      resultDiv.innerText = data.result;
-    }
+  resultDiv.innerText =
+    typeof data.error === "string"
+      ? data.error
+      : JSON.stringify(data.error, null, 2);
+} else if (data.result) {
+  resultDiv.innerText = data.result;
+} else {
+  resultDiv.innerText = "No se pudo generar la respuesta.";
+}
 
   } catch (error) {
     console.error(error);

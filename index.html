@@ -1,1 +1,33 @@
 index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lenormand Pro</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main class="container">
+    <h1>🃏 Lenormand Pro</h1>
+
+    <p>
+      Lecturas Lenormand claras, estructuradas y profesionales.
+    </p>
+
+    <textarea id="question" placeholder="Escribe tu pregunta aquí..."></textarea>
+
+    <button onclick="startReading()">Iniciar lectura</button>
+
+    <div id="result"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

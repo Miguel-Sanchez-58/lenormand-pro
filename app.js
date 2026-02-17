@@ -11,7 +11,7 @@ async function startReading() {
 
   try {
     const response = await fetch(
-      "https://lenormand-pro-api.miguel-69b.workers.dev/",
+      "https://lenormand-pro-api.miguel-69b.workers.dev",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

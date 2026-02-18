@@ -1,50 +1,23 @@
-const DAILY_LIMIT = 1; // free
-const STORAGE_KEY = "lenormand_reads";
-
-function getTodayKey() {
-  return new Date().toISOString().split("T")[0];
-}
-
-function getUsage() {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  const today = getTodayKey();
-  return data[today] || 0;
-}
-
-function incrementUsage() {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  const today = getTodayKey();
-  data[today] = (data[today] || 0) + 1;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
 function showMessage(text) {
-  document.getElementById("result").innerText = text;
+  const resultDiv = document.getElementById("result");
+
+  if (typeof text === "string") {
+    resultDiv.innerText = text;
+  } else {
+    // FORZAMOS texto siempre
+    resultDiv.innerText = JSON.stringify(text, null, 2);
+  }
 }
 
 async function startReading(mode = "basic") {
   if (window.readingInProgress) return;
   window.readingInProgress = true;
 
-  const question = document.getElementById("question").value.trim();
+  const questionInput = document.getElementById("question");
+  const question = questionInput.value.trim();
 
   if (!question) {
     alert("Por favor, escribe una pregunta clara.");
-    window.readingInProgress = false;
-    return;
-  }
-
-  // LÍMITE FREE
-  if (mode === "basic" && getUsage() >= DAILY_LIMIT) {
-    showMessage(
-`🔒 Límite alcanzado
-
-Ya has utilizado tu lectura gratuita de hoy.
-
-Con Lenormand Pro Avanzado puedes acceder a lecturas completas y más profundidad.
-
-👉 Desbloquear versión avanzada`
-    );
     window.readingInProgress = false;
     return;
   }
@@ -58,26 +31,26 @@ Con Lenormand Pro Avanzado puedes acceder a lecturas completas y más profundida
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          question,
-          mode // 👈 AQUÍ VA LA CLAVE
+          question: question,
+          mode: mode
         })
       }
     );
 
-   const data = await response.json();
+    const data = await response.json();
 
-if (data.error) {
-  showMessage(
-    typeof data.error === "string"
-      ? data.error
-      : JSON.stringify(data.error, null, 2)
-  );
-} else if (data.result) {
-  showMessage(data.result);
-} else {
-  showMessage("No se pudo generar la respuesta.");
-}
+    // 🔴 AQUÍ ESTÁ LA CLAVE
+    if (data.result) {
+      showMessage(String(data.result));
+    } else if (data.error) {
+      showMessage(String(data.error.message || data.error));
+    } else {
+      showMessage("Respuesta inválida del sistema.");
+    }
 
+  } catch (err) {
+    showMessage("Error de conexión con el sistema.");
+  }
 
   window.readingInProgress = false;
 }

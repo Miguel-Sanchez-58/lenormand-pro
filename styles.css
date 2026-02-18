@@ -35,3 +35,22 @@ button {
   white-space: pre-wrap;
 }
 
+#activationBox {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 8px;
+  text-align: center;
+}
+
+#activationBox input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+#activationBox button {
+  margin-top: 15px;
+  padding: 10px 20px;
+}

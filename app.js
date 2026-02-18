@@ -1,3 +1,5 @@
+console.log("app.js cargado");
+
 function showMessage(text) {
   const resultDiv = document.getElementById("result");
 

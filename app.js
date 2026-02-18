@@ -64,18 +64,20 @@ Con Lenormand Pro Avanzado puedes acceder a lecturas completas y más profundida
       }
     );
 
-    const data = await response.json();
+   const data = await response.json();
 
-    if (data.error) {
-      showMessage(data.error);
-    } else {
-      showMessage(data.result);
-      if (mode === "basic") incrementUsage();
-    }
+if (data.error) {
+  showMessage(
+    typeof data.error === "string"
+      ? data.error
+      : JSON.stringify(data.error, null, 2)
+  );
+} else if (data.result) {
+  showMessage(data.result);
+} else {
+  showMessage("No se pudo generar la respuesta.");
+}
 
-  } catch (e) {
-    showMessage("Error de conexión con el sistema.");
-  }
 
   window.readingInProgress = false;
 }

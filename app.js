@@ -57,3 +57,7 @@ async function startReading(mode = "basic") {
 
   window.readingInProgress = false;
 }
+function startReading() {
+  console.log("startReading ejecutada");
+  alert("startReading ejecutada");
+}

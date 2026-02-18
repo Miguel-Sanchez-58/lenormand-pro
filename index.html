@@ -1,64 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Lenormand Pro</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <!-- IMPORTANTE: app.js en la misma carpeta -->
   <script src="app.js" defer></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    button {
+      background: #6a4df4;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #553ad9;
+    }
+
+    .message {
+      margin-top: 15px;
+      min-height: 20px;
+      text-align: center;
+    }
+
+    hr {
+      margin: 30px 0;
+      border: none;
+      border-top: 1px solid #333;
+    }
+  </style>
 </head>
 
-
 <body>
+  <div class="container">
 
-  <!-- ACTIVACIÓN -->
-  <div id="activationBox" style="margin:20px; padding:20px; border:1px solid #ccc;">
+    <!-- ACTIVACIÓN -->
     <h2>Activar tiradas</h2>
 
     <input
       type="text"
       id="activationCode"
       placeholder="Ej: 1234567890-Q7"
-      style="width:100%; padding:8px;"
-    />
+    >
 
-<button onclick="activateCode()" style="margin-top:10px;">
+    <button id="activateBtn">
       Activar tiradas
     </button>
 
+    <div id="activationMessage" class="message"></div>
 
+    <hr>
 
-    <p id="activationMessage"></p>
-  </div>
-
-  <hr />
-
-  <!-- ÁREA DE TIRADA (NO TOCAR AÚN) -->
-  <div id="readingBox" style="margin:20px;">
+    <!-- TIRADA -->
     <h2>Consulta Lenormand</h2>
 
     <textarea
       id="question"
-      placeholder="Escribe tu pregunta aquí"
-      style="width:100%; height:80px;"
+      placeholder="Escribe aquí tu pregunta"
+      rows="4"
     ></textarea>
 
-    <br /><br />
+    <button id="readingBtn">
+      Realizar tirada
+    </button>
 
-   <button onclick="startReading()">
-  Realizar tirada
-</button>
+    <div id="result" class="message"></div>
 
-
-
-    <div id="result" style="margin-top:20px;"></div>
   </div>
-
-</body>
-</html>
-
-  </main>
-
-  <script src="app.js" defer></script>
-
 </body>
 </html>

@@ -8,6 +8,23 @@
 
 <body>
 
+  <div id="activationBox" style="margin:20px; padding:20px; border:1px solid #ccc;">
+  <h2>Activar tiradas</h2>
+
+  <input
+    type="text"
+    id="activationCode"
+    placeholder="Ej: 1234567890-Q7"
+    style="width:100%; padding:8px;"
+  />
+
+  <button onclick="activateCode()" style="margin-top:10px;">
+    Activar tiradas
+  </button>
+
+  <p id="activationMessage"></p>
+</div>
+
   <!-- 🔑 BLOQUE 1: ACTIVACIÓN -->
   <!-- ESTO VA ARRIBA DEL TODO -->
   <section id="activationBox">

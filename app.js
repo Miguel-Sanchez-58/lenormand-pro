@@ -1,10 +1,13 @@
 async function startReading() {
+  if (window.readingInProgress) return;
+window.readingInProgress = true;
   const question = document.getElementById("question").value;
   const resultDiv = document.getElementById("result");
 
   if (!question.trim()) {
     alert("Por favor, escribe una pregunta clara.");
     return;
+    window.readingInProgress = false;
   }
 
   resultDiv.innerText = "🔮 Barajando el mazo Lenormand...\n\n";

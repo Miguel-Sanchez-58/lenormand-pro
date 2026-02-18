@@ -8,56 +8,46 @@
 
 <body>
 
+  <!-- ACTIVACIÓN -->
   <div id="activationBox" style="margin:20px; padding:20px; border:1px solid #ccc;">
-  <h2>Activar tiradas</h2>
-
-  <input
-    type="text"
-    id="activationCode"
-    placeholder="Ej: 1234567890-Q7"
-    style="width:100%; padding:8px;"
-  />
-
-  <button onclick="activateCode()" style="margin-top:10px;">
-    Activar tiradas
-  </button>
-
-  <p id="activationMessage"></p>
-</div>
-
-  <!-- 🔑 BLOQUE 1: ACTIVACIÓN -->
-  <!-- ESTO VA ARRIBA DEL TODO -->
-  <section id="activationBox">
-    <h2>Activar tus tiradas</h2>
+    <h2>Activar tiradas</h2>
 
     <input
       type="text"
       id="activationCode"
       placeholder="Ej: 1234567890-Q7"
+      style="width:100%; padding:8px;"
     />
 
-    <button onclick="activateCode()">
+    <button onclick="activateCode()" style="margin-top:10px;">
       Activar tiradas
     </button>
 
     <p id="activationMessage"></p>
-  </section>
+  </div>
 
   <hr />
-  <body>
 
-  <main class="container">
-    <h1>🃏 Lenormand Pro</h1>
+  <!-- ÁREA DE TIRADA (NO TOCAR AÚN) -->
+  <div id="readingBox" style="margin:20px;">
+    <h2>Consulta Lenormand</h2>
 
-    <p>
-      Lecturas Lenormand claras, estructuradas y profesionales.
-    </p>
+    <textarea
+      id="question"
+      placeholder="Escribe tu pregunta aquí"
+      style="width:100%; height:80px;"
+    ></textarea>
 
-    <textarea id="question" placeholder="Escribe tu pregunta aquí..."></textarea>
+    <br /><br />
 
-    <button onclick="startReading()">Iniciar lectura</button>
+    <button onclick="startReading()">Realizar tirada</button>
 
-    <div id="result"></div>
+    <div id="result" style="margin-top:20px;"></div>
+  </div>
+
+</body>
+</html>
+
   </main>
 
   <script src="app.js"></script>

@@ -3,15 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <title>Lenormand Pro</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- PWA -->
-  <link rel="manifest" href="/manifest.json">
-
-  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
-<script src="app.js"></script>
+
+<body>
+
+  <!-- 🔑 BLOQUE 1: ACTIVACIÓN -->
+  <!-- ESTO VA ARRIBA DEL TODO -->
+  <section id="activationBox">
+    <h2>Activar tus tiradas</h2>
+
+    <input
+      type="text"
+      id="activationCode"
+      placeholder="Ej: 1234567890-Q7"
+    />
+
+    <button onclick="activateCode()">
+      Activar tiradas
+    </button>
+
+    <p id="activationMessage"></p>
+  </section>
+
+  <hr />
   <body>
 
   <main class="container">

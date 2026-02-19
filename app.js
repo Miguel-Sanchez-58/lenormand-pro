@@ -79,10 +79,17 @@ async function makeReading() {
     return;
   }
 
-  if (credits <= 0) {
-    alert("Has agotado tus tiradas. Para más lecturas, adquiere nuevas.");
-    return;
-  }
+ if (credits <= 0) {
+  document.getElementById("result").innerText =
+    "🃏 Lenormand Pro\n\n" +
+    "Has completado todas tus tiradas disponibles.\n" +
+    "El mensaje que necesitabas ya ha sido revelado.\n\n" +
+    "Cuando sientas que es el momento adecuado para profundizar de nuevo,\n" +
+    "podrás acceder a nuevas consultas con una nueva clave.\n\n" +
+    "✨ Gracias por confiar en esta lectura.";
+  return;
+}
+
 
   resultBox.innerText = "🃏 Barajando el mazo...";
 

@@ -74,21 +74,18 @@ async function makeReading() {
 
   const question = questionInput.value.trim();
 
-  if (!question) {
-    alert("Escribe una pregunta.");
-    return;
-  }
-
- if (credits <= 0) {
-  document.getElementById("result").innerText =
+if (credits <= 0) {
+  const resultBox = document.getElementById("result");
+  resultBox.innerText =
     "🃏 Lenormand Pro\n\n" +
     "Has completado todas tus tiradas disponibles.\n" +
     "El mensaje que necesitabas ya ha sido revelado.\n\n" +
-    "Cuando sientas que es el momento adecuado para profundizar de nuevo,\n" +
-    "podrás acceder a nuevas consultas con una nueva clave.\n\n" +
+    "Cuando sientas que es el momento adecuado para una nueva consulta,\n" +
+    "podrás acceder de nuevo con una nueva clave.\n\n" +
     "✨ Gracias por confiar en esta lectura.";
   return;
 }
+
 
 
   resultBox.innerText = "🃏 Barajando el mazo...";

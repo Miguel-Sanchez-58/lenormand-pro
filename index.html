@@ -6,8 +6,8 @@
 
   <!-- IMPORTANTE: app.js en la misma carpeta -->
   <script src="./app.js" defer></script>
-<p>Tiradas restantes: <strong id="creditsCount">0</strong></p>
-    <style>
+
+  <style>
     body {
       font-family: Arial, sans-serif;
       background: #111;
@@ -16,7 +16,6 @@
       justify-content: center;
       align-items: flex-start;
       padding-top: 40px;
-      
     }
 
     .container {
@@ -29,7 +28,7 @@
 
     h2 {
       text-align: center;
-          }
+    }
 
     input, textarea, button {
       width: 100%;
@@ -54,6 +53,14 @@
       margin-top: 15px;
       min-height: 20px;
       text-align: center;
+      white-space: pre-line; /* MUY IMPORTANTE para la tirada */
+    }
+
+    .credits {
+      text-align: center;
+      margin: 10px 0 20px;
+      font-size: 15px;
+      font-weight: bold;
     }
 
     hr {
@@ -67,16 +74,22 @@
 <body>
   <div class="container">
 
+    <!-- CONTADOR DE TIRADAS -->
+    <p class="credits">
+      Tiradas restantes:
+      <strong id="creditsCount">0</strong>
+    </p>
+
     <!-- ACTIVACIÓN -->
     <h2>Activar tiradas</h2>
 
     <input
       type="text"
       id="activationCode"
-      placeholder="Ej: 1234567890-Q7"
+      placeholder="Introduce tu contraseña"
     >
 
-    <button id="activateBtn">
+    <button id="activateBtn" onclick="activateCode()">
       Activar tiradas
     </button>
 
@@ -93,7 +106,7 @@
       rows="4"
     ></textarea>
 
-    <button id="readingBtn">
+    <button id="readingBtn" onclick="makeReading()">
       Realizar tirada
     </button>
 

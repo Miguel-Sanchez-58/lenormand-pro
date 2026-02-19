@@ -60,6 +60,10 @@ async function activateCode() {
    
     if (data.credits) {
       credits = data.credits;
+localStorage.setItem("lenormandCredits", credits);
+updateCreditsUI();
+
+      credits = data.credits;
       msg.innerText = `✅ Activado. Tienes ${credits} tiradas.`;
     } else {
       msg.innerText = data.error || "Contraseña no validaError al activar.";

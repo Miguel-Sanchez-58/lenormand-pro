@@ -9,15 +9,30 @@ const WORKER_URL = "https://lenormand-pro-api.miguel-69b.workers.dev";
 let credits = Number(localStorage.getItem("lenormandCredits")) || 0;
 
 // =========================
-// UI
+// UI HELPERS
 // =========================
 function updateCreditsUI() {
-  const el = document.getElementById("creditsCount");
-  if (el) {
-    el.innerText = credits;
+  const counter = document.getElementById("creditsCount");
+  if (counter) counter.innerText = credits;
+
+  if (credits <= 0) {
+    showBuyButton();
+  } else {
+    hideBuyButton();
   }
 }
 
+function showBuyButton() {
+  const box = document.getElementById("buyBox");
+  if (box) box.style.display = "block";
+}
+
+function hideBuyButton() {
+  const box = document.getElementById("buyBox");
+  if (box) box.style.display = "none";
+}
+
+// Inicialización visual
 updateCreditsUI();
 
 // =========================
@@ -39,12 +54,8 @@ async function activateCode() {
   try {
     const response = await fetch(`${WORKER_URL}/activate`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        password: code
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: code })
     });
 
     const data = await response.json();
@@ -74,31 +85,31 @@ async function makeReading() {
 
   const question = questionInput.value.trim();
 
-if (credits <= 0) {
-  const resultBox = document.getElementById("result");
-  resultBox.innerText =
-    "🃏 Lenormand Pro\n\n" +
-    "Has completado todas tus tiradas disponibles.\n" +
-    "El mensaje que necesitabas ya ha sido revelado.\n\n" +
-    "Cuando sientas que es el momento adecuado para una nueva consulta,\n" +
-    "podrás acceder de nuevo con una nueva clave.\n\n" +
-    "✨ Gracias por confiar en esta lectura.";
-  return;
-}
+  if (!question) {
+    resultBox.innerText = "Escribe una pregunta antes de realizar la tirada.";
+    return;
+  }
 
-
+  // 🔒 SIN CRÉDITOS → MENSAJE FINAL + BOTÓN
+  if (credits <= 0) {
+    resultBox.innerText =
+      "🃏 Lenormand Pro\n\n" +
+      "Has completado todas tus tiradas disponibles.\n" +
+      "El mensaje que necesitabas ya ha sido revelado.\n\n" +
+      "Cuando sientas que es el momento adecuado para una nueva consulta,\n" +
+      "puedes acceder de nuevo mediante una nueva clave.\n\n" +
+      "✨ Gracias por confiar en esta lectura.";
+    showBuyButton();
+    return;
+  }
 
   resultBox.innerText = "🃏 Barajando el mazo...";
 
   try {
     const response = await fetch(`${WORKER_URL}/reading`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        question: question
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question })
     });
 
     const data = await response.json();
@@ -111,6 +122,16 @@ if (credits <= 0) {
       updateCreditsUI();
 
       questionInput.value = "";
+
+      // Si esta fue la última tirada, mostrar mensaje final
+      if (credits === 0) {
+        resultBox.innerText +=
+          "\n\n—\n\n" +
+          "✨ Has completado todas tus tiradas disponibles.\n" +
+          "Gracias por confiar en esta lectura.";
+        showBuyButton();
+      }
+
     } else {
       resultBox.innerText = data.error || "No se pudo generar la lectura.";
     }

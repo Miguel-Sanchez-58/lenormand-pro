@@ -50,8 +50,14 @@ button {
   margin-top: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .buy-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
+}
+#buyBox {
+  display: none;              /* lo controla JS */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
 }

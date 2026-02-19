@@ -41,7 +41,7 @@ async function activateCode() {
     const response = await fetch(`${WORKER_URL}/activate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ password: code })
     });
 
     const data = await response.json();

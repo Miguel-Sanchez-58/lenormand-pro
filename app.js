@@ -131,6 +131,12 @@ async function makeReading() {
           "Gracias por confiar en esta lectura.";
         showBuyButton();
       }
+function goToEtsy() {
+  window.open(
+    "https://www.etsy.com/tu-enlace-aqui",
+    "_blank"
+  );
+}
 
     } else {
       resultBox.innerText = data.error || "No se pudo generar la lectura.";

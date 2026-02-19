@@ -1,5 +1,16 @@
+// =========================
+// CONFIGURACIÓN
+// =========================
+const WORKER_URL = "https://lenormand-pro-api.miguel-69b.workers.dev";
+
+// =========================
+// ESTADO
+// =========================
 let credits = Number(localStorage.getItem("lenormandCredits")) || 0;
 
+// =========================
+// UI
+// =========================
 function updateCreditsUI() {
   const el = document.getElementById("creditsCount");
   if (el) {
@@ -9,111 +20,98 @@ function updateCreditsUI() {
 
 updateCreditsUI();
 
-
-// ===============================
-// CONFIGURACIÓN
-// ===============================
-const WORKER_URL = "https://lenormand-pro-api.miguel-69b.workers.dev";
-
-// ===============================
-// ESTADO
-// ===============================
-let credits = 0;
-
-// ===============================
-// INICIO
-// ===============================
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("app.js listo");
-
-  document
-    .getElementById("activateBtn")
-    .addEventListener("click", activateCode);
-
-  document
-    .getElementById("readingBtn")
-    .addEventListener("click", startReading);
-});
-
-// ===============================
-// ACTIVACIÓN
-// ===============================
+// =========================
+// ACTIVAR CONTRASEÑA
+// =========================
 async function activateCode() {
-  const code = document.getElementById("activationCode").value.trim();
+  const codeInput = document.getElementById("activationCode");
   const msg = document.getElementById("activationMessage");
 
+  const code = codeInput.value.trim();
+
   if (!code) {
-    msg.innerText = "Introduce un código de activación.";
+    msg.innerText = "Introduce la contraseña.";
     return;
   }
 
-  msg.innerText = "Activando código...";
+  msg.innerText = "Activando contraseña...";
 
   try {
     const response = await fetch(`${WORKER_URL}/activate`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password: code })
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        password: code
+      })
     });
 
     const data = await response.json();
-   
+
     if (data.credits) {
       credits = data.credits;
-localStorage.setItem("lenormandCredits", credits);
-updateCreditsUI();
+      localStorage.setItem("lenormandCredits", credits);
+      updateCreditsUI();
 
-      credits = data.credits;
       msg.innerText = `✅ Activado. Tienes ${credits} tiradas.`;
+      codeInput.value = "";
     } else {
-      msg.innerText = data.error || "Contraseña no validaError al activar.";
+      msg.innerText = data.error || "Contraseña no válida.";
     }
 
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
     msg.innerText = "❌ Error de conexión con el sistema.";
   }
 }
 
-// ===============================
-// TIRADA
-// ===============================
-async function startReading() {
-  const question = document.getElementById("question").value.trim();
-  const result = document.getElementById("result");
+// =========================
+// REALIZAR TIRADA
+// =========================
+async function makeReading() {
+  const questionInput = document.getElementById("question");
+  const resultBox = document.getElementById("result");
+
+  const question = questionInput.value.trim();
 
   if (!question) {
-    result.innerText = "Escribe una pregunta primero.";
+    alert("Escribe una pregunta.");
     return;
   }
 
   if (credits <= 0) {
-    result.innerText = "No tienes tiradas disponibles.";
+    alert("Has agotado tus tiradas. Para más lecturas, adquiere nuevas.");
     return;
   }
 
-  result.innerText = "🃏 Barajando el mazo...";
+  resultBox.innerText = "🃏 Barajando el mazo...";
 
   try {
     const response = await fetch(`${WORKER_URL}/reading`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question })
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        question: question
+      })
     });
 
     const data = await response.json();
-    console.log("reading:", data);
 
     if (data.answer) {
+      resultBox.innerText = data.answer;
+
       credits--;
-      result.innerText =
-        data.answer + `\n\n(Tiradas restantes: ${credits})`;
+      localStorage.setItem("lenormandCredits", credits);
+      updateCreditsUI();
+
+      questionInput.value = "";
     } else {
-      result.innerText = data.error || "Respuesta inválida.";
+      resultBox.innerText = data.error || "No se pudo generar la lectura.";
     }
 
-  } catch (e) {
-    console.error(e);
-    result.innerText = "❌ Error al realizar la tirada.";
+  } catch (err) {
+    resultBox.innerText = "❌ Error de conexión con el sistema.";
   }
 }

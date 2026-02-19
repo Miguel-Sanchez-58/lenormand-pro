@@ -1,56 +1,40 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f6;
+  font-family: Arial, sans-serif;
 }
 
-.container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+input,
 textarea {
   width: 100%;
-  height: 120px;
-  margin-top: 20px;
+  margin: 10px 0;
   padding: 10px;
-  font-size: 16px;
+  box-sizing: border-box;
 }
 
 button {
-  margin-top: 15px;
+  margin-top: 10px;
   padding: 10px 20px;
-  font-size: 16px;
-  background: #6366f1;
-  color: white;
-  border: none;
   cursor: pointer;
 }
 
-#result {
-  margin-top: 30px;
-  white-space: pre-wrap;
-}
-
-#activationBox {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  background: rgba(0,0,0,0.05);
-  border-radius: 8px;
-  text-align: center;
-}
-
-#activationBox input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-#activationBox button {
-  margin-top: 15px;
-  padding: 10px 20px;
+.credits {
+  margin: 15px 0;
+  font-size: 16px;
 }

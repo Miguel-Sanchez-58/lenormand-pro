@@ -1,3 +1,15 @@
+let credits = Number(localStorage.getItem("lenormandCredits")) || 0;
+
+function updateCreditsUI() {
+  const el = document.getElementById("creditsCount");
+  if (el) {
+    el.innerText = credits;
+  }
+}
+
+updateCreditsUI();
+
+
 // ===============================
 // CONFIGURACIÓN
 // ===============================

@@ -45,13 +45,12 @@ async function activateCode() {
     });
 
     const data = await response.json();
-    console.log("activate:", data);
-
+   
     if (data.credits) {
       credits = data.credits;
       msg.innerText = `✅ Activado. Tienes ${credits} tiradas.`;
     } else {
-      msg.innerText = data.error || "Error al activar.";
+      msg.innerText = data.error || "Contraseña no validaError al activar.";
     }
 
   } catch (e) {

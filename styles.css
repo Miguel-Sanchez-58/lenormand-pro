@@ -39,25 +39,37 @@ button {
   margin: 15px 0;
   font-size: 16px;
 }
-.buy-button {
-  display: inline-block;
-  padding: 14px 26px;
-  background: linear-gradient(135deg, #d4af37, #b8962e);
-  color: #111;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 30px;
-  margin-top: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.buy-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
-}
 #buyBox {
-  display: none;              /* lo controla JS */
+  display: none; /* controlado por JS */
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 25px;
+}
+
+#buyBox a.buy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 28px;
+  min-width: 240px;
+
+  background: linear-gradient(135deg, #d4af37, #b8962e);
+  color: #111 !important;
+  font-weight: bold;
+
+  text-decoration: none !important;
+  border-radius: 30px;
+
+  font-size: 16px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#buyBox a.buy-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.4);
 }
